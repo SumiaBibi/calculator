@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CALCULATOR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>CodSoft Company <br>level1(task3)</h1>
+    <h2>Calculator</h2>
+    
+    <div class="container"> 
+        <fieldset id="container">
+            <form name="calculator">
+                <input id="display" type="text" placeholder="0" name="displayResult" readonly>
+                <!-- Buttons for numbers and operators -->
+                <input class="button btn" type="button" name="b7" value="7" onclick="appendValue(b7.value)">
+                <input class="button btn" type="button" name="b8" value="8" onclick="appendValue(b8.value)">
+                <input class="button btn" type="button" name="b9" value="9" onclick="appendValue(b9.value)">
+                <input class="button mathButton" type="button" name="addb" value="+" onclick="appendOperator(addb.value)">
+                <br>
+                <input class="button btn" type="button" name="b4" value="4" onclick="appendValue(b4.value)">
+                <input class="button btn" type="button" name="b5" value="5" onclick="appendValue(b5.value)">
+                <input class="button btn" type="button" name="b6" value="6" onclick="appendValue(b6.value)">
+                <input class="button mathButton" type="button" name="subb" value="-" onclick="appendOperator(subb.value)">
+                <br>
+                <input class="button btn" type="button" name="b1" value="1" onclick="appendValue(b1.value)">
+                <input class="button btn" type="button" name="b2" value="2" onclick="appendValue(b2.value)">
+                <input class="button btn" type="button" name="b3" value="3" onclick="appendValue(b3.value)">
+                <input class="button mathButton" type="button" name="mulb" value="*" onclick="appendOperator(mulb.value)">
+                <br>
+                <input id="clearButton" class="button" type="button" name="cb" value="C" onclick="clearDisplay()">
+                <input class="button btn" type="button" name="b0" value="0" onclick="appendValue(b0.value)">
+                <input class="button mathButton" type="button" name="divb" value="/" onclick="appendOperator(divb.value)">
+                <input class="button mathButton equal" type="button" value="=" onclick="calculate()">
+            </form>
+        </fieldset>
+    </div>
+    
+    <script>
+        let currentValue = '';
+        let currentOperator = '';
+        
+        function appendValue(value) {
+            document.calculator.displayResult.value += value;
+        }
+        
+        function appendOperator(operator) {
+            currentValue = document.calculator.displayResult.value;
+            currentOperator = operator;
+            document.calculator.displayResult.value = '';
+        }
+        
+        function clearDisplay() {
+            document.calculator.displayResult.value = '';
+            currentValue = '';
+            currentOperator = '';
+        }
+        
+        function calculate() {
+            const inputValue = parseFloat(document.calculator.displayResult.value);
+            const previousValue = parseFloat(currentValue);
+            let result = 0;
+            
+            if (currentOperator === '+') {
+                result = previousValue + inputValue;
+            } else if (currentOperator === '-') {
+                result = previousValue - inputValue;
+            } else if (currentOperator === '*') {
+                result = previousValue * inputValue;
+            } else if (currentOperator === '/') {
+                if (inputValue === 0) {
+                    result = 'Error: Division by zero';
+                } else {
+                    result = previousValue / inputValue;
+                }
+            }
+            
+            document.calculator.displayResult.value = result;
+        }
+    </script>
+</body>
+</html>
